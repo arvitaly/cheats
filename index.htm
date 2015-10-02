@@ -1,1 +1,65 @@
-"Hello World" 
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <link rel="stylesheet" href="http://cdn.webix.com/edge/webix.css" type="text/css"> 
+    <script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>  
+                <meta charset="utf-8" />
+    </head>
+    <body>
+        <script type="text/javascript" charset="utf-8">
+            var set = [
+	{ id:1, title:"Forwarding ports Windows Server. Проброс портов (маршрутизация)", year:1994, votes:678790, rating:9.2, rank:1},
+	{ id:2, title:"Установка библиотеки ssh2 для PHP под Windows", year:1972, votes:511495, rating:9.2, rank:2},
+	{ id:3, title:"Поиск по содержимому файлов Ubuntu", year:1974, votes:319352, rating:9.0, rank:3},
+	{ id:4, title:"Открытые порты в Ubuntu", year:1966, votes:213030, rating:8.9, rank:4},
+	{ id:5, title:"Рабочий OpenVPN для Ubuntu", year:1964, votes:533848, rating:8.9, rank:5},
+	{ id:6, title:"The Godfather: Part II", year:1957, votes:164558, rating:8.9, rank:6},
+	{ id:7, title:"Collector", year: 1987, voles:556884}
+];
+webix.ui({
+  rows:[
+        {cols:[
+            {rows:[
+      { view:"template", 
+        type:"header", template:"Wiki" },
+      { 
+				container:"listA",
+        width:320,
+        height:600,
+        rows:[
+            {
+                height: 35,
+                view:"toolbar",
+                elements:[
+                    {view:"text", id:"list_input",label:"Filter list",css:"fltr", labelWidth:170}
+                ]
+            },
+            {
+                view:"list",
+                id:"list",
+
+                template:"#title#",
+                select:true,
+                click:function(a,b,c){
+                    $$('frame-body').define("src", "data/" + a + ".html");
+                },
+                data:set
+            }
+        ]
+      }]},
+						{ 
+							view:"iframe", id:"frame-body", src:"data/start.html"
+						}
+         ]}
+  ]
+});
+            
+            $$("list_input").attachEvent("onTimedKeyPress",function(){
+        var value = this.getValue().toLowerCase();
+        $$("list").filter(function(obj){
+            return obj.title.toLowerCase().indexOf(value)==0;
+        })
+    });
+        </script>
+    </body>
+</html>
