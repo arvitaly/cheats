@@ -66,7 +66,7 @@ webix.ui({
             $$("list_input").attachEvent("onTimedKeyPress",function(){
         var value = this.getValue().toLowerCase();
         $$("list").filter(function(obj){
-            return obj.title.toLowerCase().indexOf(value)==0;
+            return obj.title.toLowerCase().indexOf(value) > -1;
         })
     });
         </script>
