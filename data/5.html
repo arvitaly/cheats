@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h2>01.11.2013 Рабочий OpenVPN для Ubuntu</h2>
+        
+<p>http://qw1mb0.blogspot.ru/2013/06/openvpn-ubuntu-1204-windows.html</p>
+
+<p>Для 64-битной винды качать тут</p>
+<p>http://openvpn.net/index.php/open-source/downloads.html</p>
+
+<p>Это прописать в /etc/rc.local или еще где-нибудь</p>
+<p>sysctl net.ipv4.ip_forward=1</p>
+<p>iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE</p>
+        
+        
+        sudo apt-get update<br />
+
+sudo apt-get install openvpn -y<br />
+
+sudo mkdir /etc/openvpn/easy-rsa<br />
+
+sudo wget https://github.com/downloads/OpenVPN/easy-rsa/easy-rsa-2.2.0_master.tar.gz<br />
+
+sudo tar -zxvf easy-rsa-2.2.0_master.tar.gz<br />
+
+sudo cp -R easy-rsa-2.2.0_master/easy-rsa/2.0/* /etc/openvpn/easy-rsa<br />
+
+cd /etc/openvpn/easy-rsa<br />
+
+source vars<br />
+
+sudo chown -R $USER /etc/openvpn/easy-rsa/<br />
+
+./clean-all<br />
+
+./build-ca<br />
+
+./build-key-server server<br />
+
+./build-dh<br />
+
+cd keys/<br />
+
+sudo cp ca.crt dh1024.pem server.crt server.key /etc/openvpn/<br />
+
+cd /etc/openvpn<br />
+
+sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/<br />
+
+sudo gzip -d server.conf.gz<br />
+
+sudo chown -R $USER /etc/openvpn/server.conf<br />
+
+sudo echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server.conf<br />
+
+sudo /etc/init.d/openvpn start<br />
+
+cd /etc/openvpn/easy-rsa/<br />
+
+source vars<br />
+
+./build-key client1<br />
+
+sudo sh -c 'echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf'<br />
+
+sudo iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE<br />
+
+sudo sh -c "iptables-save > /etc/iptables.rules"<br />
+
+sudo sh -c 'echo "pre-up iptables-restore &lt; /etc/iptables.rules" &gt;&gt; /etc/network/interfaces'<br />
+        
+    </body>
+</html>
