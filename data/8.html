@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h2>17.01.2014 FFmpeg расклеивание и склеивание дорожек</h2>
+        <p>ffmpeg -y -i 1.m4v -vn -map 0:2 -ss 00:13:10:500 -t 65 -vcodec copy 2.mp3</p>
+
+<p>Из видео 1.m4v берем аудиодорожку начиная с 13:10:500, длительностью 65 секунд в файл 2.mp3</p>
+
+<p>ffmpeg -y -i 1.m4v -an -map 0:0 -ss 789 -t 66 -vcodec copy 2.m4v</p>
+
+<p>Из видео 1.m4v берем видеодорожку начиная с 789 секунды, длительностью 66 секунд в файл 2.m4v</p>
+
+<p>ffmpeg -y -i 2.m4v -vcodec copy -i 2.mp3 3.m4v</p>
+
+<p>Соединяем 2 файла в 3.m4v</p>
+    </body>
+</html>

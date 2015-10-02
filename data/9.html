@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h2>08.04.2014 SSH Tunnel Mysql</h2>
+        <p>Это пишем на серваке куда надо прокинуть порт</p>
+ <p>ssh -p 22 -f -L 2222:127.0.0.1:3306 azureuser@137.116.235.65 sleep 360000 >> /dev/null</p>
+ <p>mysql -P 2222 -h 127.0.0.1 -uroot -p</p>
+    </body>
+</html>

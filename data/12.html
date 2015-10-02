@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h2>11.08.2014 trigger for time create, триггер mysql время создания</h2>
+        <p>CREATE TRIGGER `table1_time_create`
+BEFORE INSERT 
+ON `table1` FOR EACH ROW
+BEGIN
+SET NEW.time_create = UNIX_TIMESTAMP(NOW());
+END
+</p>
+    </body>
+</html>
